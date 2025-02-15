@@ -11,3 +11,14 @@ window.addEventListener("scroll", function() {
     }
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 });
+
+// Hamburger menu
+const hamburgerMenu = document.getElementById("hamburger-menu");
+hamburgerMenu.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+});
+
+// Hide menu on scroll (both up and down)
+window.addEventListener("scroll", () => {
+    navbar.classList.remove("active");
+});

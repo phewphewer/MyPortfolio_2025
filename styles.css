@@ -1,17 +1,18 @@
-/* Basic Reset */
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     justify-content: center;
+    scrollbar-width: 10px;
+    scrollbar-color: #61c3e4 #313131c8;
 }
 
 .content {
     margin-inline: 1.5cm;
 }
-/* Body and General Styles */
+
 body {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 0.8em;
     line-height: 2em;
     letter-spacing: 0.1em;
@@ -27,6 +28,7 @@ body {
     top: 0;
     z-index: 1000;
     transition: top 0.3s;
+    padding: 0.1rem;
 }
 
 #navbar ul {
@@ -36,14 +38,14 @@ body {
 }
 
 #navbar ul li {
-    margin-inline: 0.4rem;
-    padding-block: 0.5rem;
+    margin-inline: 1rem;
+    padding-block: 0.3rem;
 }
 
 #navbar ul li a {
     color: white;
     text-decoration: none;
-    font-size: 0.8em;
+    font-size: 1rem;
     padding: 0.8rem;
     margin-inline: 1rem;
     border-radius: 5px;
@@ -54,11 +56,22 @@ body {
     transition: 0.8s;
 }
 
-#shadow_on_black {
-    text-shadow: 1px, 1px, 4px, whitesmoke;
+/* Hamburger Menu */
+#hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1100;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
-#shadow_on_white {
-    text-shadow: 1px, 1px, 4px, black;
+
+#hamburger-menu div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
 }
 
 /* Section 1: Home and About Me */
@@ -70,17 +83,14 @@ body {
     padding-block: 1cm;
 }
 
-#home {
-    background-color: #000;
-}
-
-#about {
+#home, #about {
     background-color: #111;
 }
 
 /* Section 2: Services, Projects, Certifications */
 .section-services-projects-certifications {
     min-height: 100vh;
+    background-color: #fff;
     color: #333;
     border-radius: 20px;
     text-align: center;
@@ -89,33 +99,21 @@ body {
     margin: 2cm;
 }
 
-#services, #projects, #certifications {
-    background-color: #fff;
-}
-
 .column {
     float: left;
     width: 33.33%;
     line-height: 2em;
     font-size: 0.75em;
     text-align: left;
-  }
-  
-  /* Clear floats after the columns */
-  .row:after {
+}
+
+.row:after {
     content: "";
     display: table;
     clear: both;
-    
-  }
-  
-  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 800px) {
-    .column {
-      width: 100%;
-    }
-  }
+}
 
+/* Footer */
 footer {
     bottom: 0px;
     text-align: center;
@@ -125,22 +123,155 @@ footer {
     color: white;
 }
 
-/* Custom scrollbar for Webkit browsers (Chrome, Brave, newer Edge) */
+/* For Webkit browsers (Chrome, Edge, Brave) */
 ::-webkit-scrollbar {
-    width: 20px; /* Adjust the width of the scrollbar */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #212121; /* Color of the track */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #c5c5c5; /* Color of the thumb (the draggable part) */
-    border-radius: 20px; /* Rounded corners on the thumb */
-  }
-    
-  /* Custom scrollbar for Firefox */
-  html {
-    scrollbar-width: 20px; /* Makes the scrollbar thinner */
-    scrollbar-color: #888 #f1f1f1; /* Thumb color and track color */
-  }
+    width: 12px;  /* Width of the scrollbar */
+    height: 12px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: gray;  /* Color of the scrollbar track */
+    border-radius: 10px; /* Round edges of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgray; /* Color of the sliding bar */
+    border-radius: 10px; /* Round edges of the sliding bar */
+    border: 3px solid gray; /* Optional: Adds a slight border between the track and the thumb */
+}
+
+::-webkit-scrollbar-button {
+    display: none; /* Hides the up and down arrows */
+}
+
+/* For Firefox */
+scrollbar {
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    background: gray;
+}
+
+scrollbar-thumb {
+    background-color: darkgray;
+    border-radius: 10px;
+}
+
+scrollbar-button {
+    display: none;
+}
+
+/* Responsive Design for Mobile/Tablets (Portrait and Landscape) and PC */
+
+/* For Mobile/Tablets Portrait Mode */
+@media (max-width: 768px) and (orientation: portrait) {
+    #navbar ul {
+        flex-direction: column;
+        display: none;
+    }
+
+    #hamburger-menu {
+        display: flex;
+    }
+
+    #navbar.active ul {
+        display: block;
+    }
+
+    .column {
+        width: 100%;
+    }
+
+    footer {
+        font-size: 10px;
+    }
+}
+
+/* For Mobile/Tablets Landscape Mode */
+@media (max-width: 768px) and (orientation: landscape) {
+    #navbar ul {
+        flex-direction: row;
+        display: none;
+    }
+
+    #hamburger-menu {
+        display: flex;
+    }
+
+    #navbar.active ul {
+        display: block;
+    }
+
+    .column {
+        width: 50%;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
+
+/* For Tablets Portrait (max-width: 1024px) */
+@media (max-width: 1024px) and (orientation: portrait) {
+    #navbar ul {
+        flex-direction: column;
+        display: none;
+    }
+
+    #hamburger-menu {
+        display: flex;
+    }
+
+    #navbar.active ul {
+        display: block;
+    }
+
+    .column {
+        width: 50%;
+    }
+}
+
+/* For Tablets Landscape (max-width: 1024px) */
+@media (max-width: 1024px) and (orientation: landscape) {
+    #navbar ul {
+        flex-direction: row;
+        display: none;
+    }
+
+    #hamburger-menu {
+        display: flex;
+    }
+
+    #navbar.active ul {
+        display: block;
+    }
+
+    .column {
+        width: 33.33%;
+    }
+}
+
+/* For Larger Screens / PC (min-width: 1025px) */
+@media (min-width: 1025px) {
+    #navbar ul {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #navbar ul li {
+        margin-inline: 1rem;
+        padding-block: 0.7rem;
+    }
+
+    #navbar ul li a {
+        font-size: 0.7rem;
+    }
+
+    .column {
+        width: 33.33%;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
